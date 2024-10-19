@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from quizzes.api import QuizViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 urlpatterns = [
@@ -24,5 +25,9 @@ urlpatterns = [
     path('api/', include('quizzes.urls')),       # Include the quiz app URLs
  
 
+
+    #_______api_auth______________
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Token obtain endpoint
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Token refresh endpoint
 
 ]

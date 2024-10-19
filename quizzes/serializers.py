@@ -29,8 +29,7 @@ class StudentQuizSubmissionSrializers(serializers.ModelSerializer):
     class Meta:
         model=StudentQuizSubmission
         fields = '__all__'         
-
-
+    
                        
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:

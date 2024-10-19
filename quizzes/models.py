@@ -1,7 +1,22 @@
+from django.contrib.auth.models import AbstractUser
+
 from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+
+
+class UserProfile(models.Model):
+    ROLE_CHOICES = [
+        ('teacher', 'Teacher'),
+        ('student', 'Student'),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=7, choices=ROLE_CHOICES)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
 
 
 class Quiz(models.Model):
@@ -29,7 +44,13 @@ class StudentQuizSubmission(models.Model):
     submission_time = models.DateTimeField(auto_now_add=True)
     score = models.FloatField()
 
+    def __str__(self):
+        return f"{self.student.username} - {self.quiz.title}"
+
 class Answer(models.Model):
     submission = models.ForeignKey(StudentQuizSubmission, related_name='answers_submission', on_delete=models.CASCADE)
     question = models.ForeignKey(Question,related_name='Answer_Question' ,on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, null=True, blank=True, on_delete=models.SET_NULL)
+
+
+
